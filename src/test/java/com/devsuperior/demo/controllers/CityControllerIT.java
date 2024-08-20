@@ -34,13 +34,13 @@ public class CityControllerIT {
 	public void findAllShouldReturnAllResourcesSortedByName() throws Exception {
 		
 		ResultActions result =
-				mockMvc.perform(get("/cities")
+				mockMvc.perform(get("/cities?sort=name&name=")
 					.contentType(MediaType.APPLICATION_JSON));
 
 		result.andExpect(status().isOk());
-		result.andExpect(jsonPath("$[0].name").value("Belo Horizonte"));
-		result.andExpect(jsonPath("$[1].name").value("Belém"));
-		result.andExpect(jsonPath("$[2].name").value("Brasília"));
+		result.andExpect(jsonPath("$.content[0].name").value("Belo Horizonte"));
+		result.andExpect(jsonPath("$.content[1].name").value("Belém"));
+		result.andExpect(jsonPath("$.content[2].name").value("Brasília"));
 	}
 	
 	@Test
