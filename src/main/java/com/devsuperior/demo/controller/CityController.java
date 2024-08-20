@@ -3,13 +3,12 @@ package com.devsuperior.demo.controller;
 import com.devsuperior.demo.dto.CityDTO;
 import com.devsuperior.demo.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/cities")
@@ -18,10 +17,9 @@ public class CityController {
     private CityService service;
 
     @GetMapping
-    public ResponseEntity<Page<CityDTO>> findAll( @RequestParam(value = "name", defaultValue = "") String name,
-                                                  Pageable pageable) {
-        Page<CityDTO> list = service.searchByName(name, pageable);
-        return ResponseEntity.ok(list);
+    public ResponseEntity<List<CityDTO>> findAll() {
+        List<CityDTO> list = service.findAll();
+        return ResponseEntity.ok().body(list);
     }
 
     @PostMapping
